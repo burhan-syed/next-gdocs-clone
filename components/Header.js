@@ -1,7 +1,10 @@
 import Button from "@material-tailwind/react/Button";
 import Icon from "@material-tailwind/react/Icon";
 import Search from "./Search";
+
+import { signOut, useSession } from "next-auth/client";
 const Header = () => {
+  const [session] = useSession();
   return (
     <header className="sticky top-0 z-50 flex items-center px-4 py-4 bg-white shadow-md">
       <Button
@@ -21,17 +24,23 @@ const Header = () => {
       </div>
 
       <Button
-      color="gray"
-      buttonType="outline"
-      rounded={true}
-      iconOnly={true}
-      ripple="dark"
-      className="w-20 h-20 ml-5 border-0 md:inline-flex md:ml-20"
+        color="gray"
+        buttonType="outline"
+        rounded={true}
+        iconOnly={true}
+        ripple="dark"
+        className="w-20 h-20 ml-5 border-0 md:inline-flex md:ml-20"
       >
         <Icon name="apps" size="3xl" color="gray" />
       </Button>
 
-      <img loading="lazy" className="w-12 h-12 ml-2 rounded-full cursor-pointer" src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" alt="img"/>
+      <img
+        loading="lazy"
+        className="w-12 h-12 ml-2 rounded-full cursor-pointer"
+        src={session?.user?.image}
+        alt="img"
+        onClick={signOut}
+      />
     </header>
   );
 };
