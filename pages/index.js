@@ -120,20 +120,17 @@ export default function Home() {
             <p className="mr-12">Date Created</p>
             <Icon name="folder" size="3xl" color="gray" />
           </div>
-        
-        {snapshot?.docs.map((doc) => (
-          
+
+          {snapshot?.docs.map((doc) => (
             <DocumentRow
               key={doc.id}
               id={doc.id}
               filename={doc.data().fileName}
               date={doc.data().timestamp}
             />
-          
-        ))}
+          ))}
         </div>
       </section>
-      
     </div>
   );
 }
