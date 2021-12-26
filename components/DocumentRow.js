@@ -1,6 +1,7 @@
 import Button from "@material-tailwind/react/Button";
 import Icon from "@material-tailwind/react/Icon";
 import { useRouter } from "next/dist/client/router";
+import RowOptions from "./RowOptions";
 
 const DocumentRow = ({ id, date, filename }) => {
   const router = useRouter();
@@ -11,9 +12,11 @@ const DocumentRow = ({ id, date, filename }) => {
       <p className="flex-grow w-10 pl-5 pr-10 truncate">{filename}</p>
       <p className="pr-5 text-sm">{date?.toDate().toLocaleDateString()}</p>
 
-      <Button color="gray" buttonType="outline" rounded={true} iconOnly={true} ripple="dark" className="border-0">
+      {/* <Button color="gray" buttonType="outline" rounded={true} iconOnly={true} ripple="dark" className="border-0">
         <Icon name="more_vert" size="3xl" ></Icon>
-      </Button>
+      </Button> */}
+      <div onClick={e => e.stopPropagation()} className=""><RowOptions/></div>
+      
     </div>
   );
 };

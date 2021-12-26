@@ -6,7 +6,7 @@ const Search = () => {
       <input
         className="flex-grow px-5 text-base bg-transparent outline-none"
         type="text"
-        placeholder="search"
+        placeholder="Search"
       />
     </div>
   );

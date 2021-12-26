@@ -6,14 +6,14 @@ import { signOut, useSession } from "next-auth/client";
 const Header = () => {
   const [session] = useSession();
   return (
-    <header className="sticky top-0 z-50 flex items-center px-4 py-4 bg-white shadow-md">
+    <header className="sticky top-0 z-50 flex items-center px-4 bg-white shadow-md">
       <Button
         color="gray"
         buttonType="outline"
         rounded={true}
         iconOnly={true}
         ripple="dark"
-        className="w-20 h-20 border-0 md:inline-flex"
+        className="border-0 w-14 h-14 md:inline-flex"
       >
         <Icon name="menu" size="3xl" />
       </Button>

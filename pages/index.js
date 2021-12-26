@@ -2,6 +2,7 @@ import Head from "next/head";
 import Header from "../components/Header";
 import Login from "../components/Login";
 import DocumentRow from "../components/DocumentRow";
+import RowOptions from "../components/RowOptions";
 
 import Image from "next/image";
 import Button from "@material-tailwind/react/Button";
@@ -16,7 +17,7 @@ import { useState } from "react";
 import { db } from "../firebase";
 import firebase from "firebase";
 
-import { useCollectionOnce } from "react-firebase-hooks/firestore";
+import { useCollection } from "react-firebase-hooks/firestore";
 
 export default function Home() {
   const [session] = useSession();
@@ -25,7 +26,7 @@ export default function Home() {
 
   const [showModal, setShowModal] = useState(false);
   const [input, setInput] = useState("");
-  const [snapshot] = useCollectionOnce(
+  const [snapshot] = useCollection(
     db
       .collection("userDocs")
       .doc(session.user.email)
