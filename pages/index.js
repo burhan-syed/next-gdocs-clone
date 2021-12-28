@@ -33,7 +33,7 @@ export default function Home() {
       .collection("docs")
       .orderBy("timestamp", "desc")
   );
-  snapshot?.docs.forEach((d) => console.log(d.id));
+  //snapshot?.docs.forEach((d) => console.log(d.id));
 
   const createDocument = () => {
     if (!input) return;
@@ -124,6 +124,7 @@ export default function Home() {
 
           {snapshot?.docs.map((doc) => (
             <DocumentRow
+              doc={doc}
               key={doc.id}
               id={doc.id}
               filename={doc.data().fileName}
