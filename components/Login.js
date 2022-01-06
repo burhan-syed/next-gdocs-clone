@@ -9,7 +9,7 @@ const Login = () => {
       color='blue'
       buttonType='filled'
       ripple='light'
-      onClick={signIn}>
+      onClick={() => signIn('google')}>
         Login
       </Button>
     </div>
