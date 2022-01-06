@@ -6,6 +6,7 @@ import RowOptions from "./RowOptions";
 
 const DocumentRow = ({ doc, id, date, filename }) => {
   const router = useRouter();
+  
   return (
     <div onClick={() => router.push(`/doc/${id}`)} className="flex items-center p-4 text-sm text-gray-700 rounded-lg cursor-pointer hover:bg-gray-100">
       

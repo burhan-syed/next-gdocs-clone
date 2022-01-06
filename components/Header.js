@@ -3,8 +3,9 @@ import Icon from "@material-tailwind/react/Icon";
 import Search from "./Search";
 
 import { signOut, useSession } from "next-auth/client";
-const Header = () => {
+const Header = ({setSearchFilter}) => {
   const [session] = useSession();
+  
   return (
     <header className="sticky top-0 z-50 flex items-center px-4 bg-white shadow-md">
       <Button
@@ -20,7 +21,7 @@ const Header = () => {
       <Icon name="description" size="5xl" color="blue" />
       <h1 className="ml-2 text-2xl text-gray-700 md:inline-flex">Docs</h1>
       <div className="flex items-center flex-grow px-5 py-2 mx-5 text-gray-600 bg-gray-100 rounded-lg focus-within:text-gray-600 focus-within:shadow-md md:mx-20">
-        <Search />
+        <Search setSearchFilter={setSearchFilter}/>
       </div>
 
       <Button
@@ -38,7 +39,7 @@ const Header = () => {
         loading="lazy"
         className="w-12 h-12 ml-2 rounded-full cursor-pointer"
         src={session?.user?.image}
-        alt="img"
+        alt=""
         onClick={signOut}
       />
     </header>

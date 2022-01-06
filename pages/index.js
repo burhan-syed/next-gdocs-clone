@@ -23,7 +23,7 @@ export default function Home() {
   const [session] = useSession();
 
   if (!session) return <Login />;
-
+  const [searchFilter, setSearchFilter] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [input, setInput] = useState("");
   const [snapshot] = useCollection(
@@ -82,7 +82,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Header />
+      <Header setSearchFilter={setSearchFilter} />
 
       {modal}
 
@@ -123,13 +123,18 @@ export default function Home() {
           </div>
 
           {snapshot?.docs.map((doc) => (
-            <DocumentRow
-              doc={doc}
-              key={doc.id}
-              id={doc.id}
-              filename={doc.data().fileName}
-              date={doc.data().timestamp}
-            />
+            <>
+              {(!searchFilter ||
+                doc.data().fileName.includes(searchFilter)) && (
+                <DocumentRow
+                  doc={doc}
+                  key={doc.id}
+                  id={doc.id}
+                  filename={doc.data().fileName}
+                  date={doc.data().timestamp}
+                />
+              )}
+            </>
           ))}
         </div>
       </section>
