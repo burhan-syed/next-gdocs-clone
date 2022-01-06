@@ -54,7 +54,7 @@ export default function Home() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           type="text"
-          className="w-full outline-none"
+          className="w-full border-b outline-none"
           placeholder="Enter name of document.."
           onKeyDown={(e) => e.key === "Enter" && createDocument()}
         />

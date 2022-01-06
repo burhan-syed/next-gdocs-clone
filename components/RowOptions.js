@@ -1,5 +1,5 @@
 import { Menu, Transition } from "@headlessui/react";
-import { Fragment, useState,  useEffect } from "react";
+import { Fragment, useState, useEffect } from "react";
 import Button from "@material-tailwind/react/Button";
 import Icon from "@material-tailwind/react/Icon";
 import Modal from "@material-tailwind/react/Modal";
@@ -9,51 +9,57 @@ import { doc, deleteDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { useSession } from "next-auth/client";
 
-
-
-const RowOptions = ({id, filename}) => {
+const RowOptions = ({ id, filename }) => {
   const [session] = useSession();
   const [showModal, setShowModal] = useState(false);
-  const [input, setInput] = useState(filename)
+  const [input, setInput] = useState("");
 
   useEffect(() => {
-    setInput(filename);
-  
-  }, [showModal])
+    setInput("");
+  }, [showModal]);
 
-
-  const deleteDoc = async() => {
-    try{
+  const deleteDoc = async () => {
+    try {
       await db
-      .collection("userDocs")
-      .doc(session.user.email)
-      .collection("docs").doc(id).delete();
-      console.log('deleted');
+        .collection("userDocs")
+        .doc(session.user.email)
+        .collection("docs")
+        .doc(id)
+        .delete();
     } catch (err) {
       console.log(err);
     }
-  
-  }
+  };
 
-  const changeName = async() => {
-    await db
-    .collection("userDocs")
-    .doc(session.user.email)
-    .collection("docs").doc(id).update({'fileName': input});
-  }
+  const changeName = async () => {
+    if (input) {
+      await db
+        .collection("userDocs")
+        .doc(session.user.email)
+        .collection("docs")
+        .doc(id)
+        .update({ fileName: input });
+    }
+  };
 
   const modal = (
-    <Modal size="regular" active={showModal} toggler={() => setShowModal(false)}>
+    <Modal
+      size="regular"
+      active={showModal}
+      toggler={() => setShowModal(false)}
+    >
       <ModalBody className="cursor-auto">
         <h1 className="text-2xl">Rename</h1>
-        <h2 className="py-2 text-md ">Please enter a new name for the item:</h2>
+        <h2 className="py-2 text-md ">
+          Please enter a new name for this item:
+        </h2>
         <input
           value={input}
           onFocus={(event) => event.target.select()}
           onChange={(e) => setInput(e.target.value)}
           type="text"
-          className="w-full py-0.5 px-2 border border-[#0062F2] rounded-md outline-none"
-          placeholder="Enter name of document.."
+          className="w-full text-base border-b outline-none"
+          placeholder={filename}
           onKeyDown={(e) => e.key === "Enter" && changeName()}
         />
       </ModalBody>
@@ -66,7 +72,14 @@ const RowOptions = ({id, filename}) => {
         >
           Cancel
         </Button>
-        <Button color="blue" onClick={() => {changeName(); setShowModal(false);}} ripple="light">
+        <Button
+          color="blue"
+          onClick={() => {
+            changeName();
+            setShowModal(false);
+          }}
+          ripple="light"
+        >
           OK
         </Button>
       </ModalFooter>
@@ -101,7 +114,10 @@ const RowOptions = ({id, filename}) => {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute z-50 w-56 py-1 mt-1 origin-top bg-white divide-y divide-gray-100 rounded-md shadow-lg outline-none left-1/2 ring-1 ring-black ring-opacity-5 focus:outline-none" style={{transform: 'translateX(105%)'}}>
+              <Menu.Items
+                className="absolute z-50 w-56 py-1 mt-1 origin-top bg-white divide-y divide-gray-100 rounded-md shadow-lg outline-none left-1/2 ring-1 ring-black ring-opacity-5 focus:outline-none"
+                style={{ transform: "translateX(105%)" }}
+              >
                 <Menu.Item>
                   {({ active }) => (
                     <div
@@ -110,7 +126,6 @@ const RowOptions = ({id, filename}) => {
                         "block px-4 py-1 text-sm hover:bg-gray-50")
                       }
                       onClick={() => setShowModal(true)}
-                    
                     >
                       <div className="flex flex-row items-center h-10 cursor-pointer">
                         <Icon name="text_fields" size="3xl"></Icon>
@@ -142,7 +157,7 @@ const RowOptions = ({id, filename}) => {
                         (active ? "bg-gray-50" : " ",
                         "block px-4 py-1 text-sm hover:bg-gray-50")
                       }
-                      onClick={() => window.open(`/doc/${id}`, '_blank')}
+                      onClick={() => window.open(`/doc/${id}`, "_blank")}
                     >
                       <div className="flex flex-row items-center h-10 cursor-pointer">
                         <Icon name="open_in_new" size="3xl"></Icon>
